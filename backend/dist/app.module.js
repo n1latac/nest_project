@@ -10,14 +10,23 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const users_module_1 = require("./users/users.module");
+const users_module_1 = require("./modules/users/users.module");
 const cats_module_1 = require("./cats/cats.module");
+const config_1 = require("@nestjs/config");
+const configurations_1 = require("./configurations");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, cats_module_1.CatsModule],
+        imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                load: [configurations_1.default],
+            }),
+            users_module_1.UsersModule,
+            cats_module_1.CatsModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
