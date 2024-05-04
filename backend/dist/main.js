@@ -2,10 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
+const config_1 = require("@nestjs/config");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    await app.listen(4000, () => {
-        console.log('server start on port 4000');
+    const configService = app.get(config_1.ConfigService);
+    await app.listen(configService.get('port'), () => {
+        console.log(`server start on port ${configService.get('port')}`);
     });
 }
 bootstrap();
