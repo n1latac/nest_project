@@ -13,6 +13,7 @@ const app_service_1 = require("./app.service");
 const users_module_1 = require("./modules/users/users.module");
 const cats_module_1 = require("./cats/cats.module");
 const config_1 = require("@nestjs/config");
+const sequelize_1 = require("@nestjs/sequelize");
 const configurations_1 = require("./configurations");
 let AppModule = class AppModule {
 };
@@ -23,6 +24,21 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 load: [configurations_1.default],
+            }),
+            sequelize_1.SequelizeModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: (configService) => ({
+                    dialect: 'mysql',
+                    host: configService.get('db_host'),
+                    port: configService.get('db_port'),
+                    database: configService.get('db_name'),
+                    username: configService.get('db_user'),
+                    password: configService.get('db_password'),
+                    synchronize: true,
+                    autoLoadModels: true,
+                    models: [],
+                }),
             }),
             users_module_1.UsersModule,
             cats_module_1.CatsModule,
