@@ -15,6 +15,7 @@ const cats_module_1 = require("./cats/cats.module");
 const config_1 = require("@nestjs/config");
 const sequelize_1 = require("@nestjs/sequelize");
 const configurations_1 = require("./configurations");
+const user_model_1 = require("./models/user.model");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -37,7 +38,7 @@ exports.AppModule = AppModule = __decorate([
                     password: configService.get('db_password'),
                     synchronize: true,
                     autoLoadModels: true,
-                    models: [],
+                    models: [user_model_1.User],
                 }),
             }),
             users_module_1.UsersModule,
