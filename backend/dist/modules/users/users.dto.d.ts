@@ -1,4 +1,4 @@
-export declare class UsersDto {
+export declare class CreateUserDTO {
     first_name: string;
     last_name: string;
     email: string;

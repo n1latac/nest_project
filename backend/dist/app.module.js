@@ -16,6 +16,8 @@ const config_1 = require("@nestjs/config");
 const sequelize_1 = require("@nestjs/sequelize");
 const configurations_1 = require("./configurations");
 const user_model_1 = require("./models/user.model");
+const auth_module_1 = require("./modules/auth/auth.module");
+const token_module_1 = require("./modules/token/token.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -43,6 +45,8 @@ exports.AppModule = AppModule = __decorate([
             }),
             users_module_1.UsersModule,
             cats_module_1.CatsModule,
+            auth_module_1.AuthModule,
+            token_module_1.TokenModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

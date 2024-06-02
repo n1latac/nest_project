@@ -5,5 +5,7 @@ declare const _default: () => {
     db_name: string;
     db_user: string;
     db_password: string;
+    jwt_secret: string;
+    jwt_expired: string;
 };
 export default _default;

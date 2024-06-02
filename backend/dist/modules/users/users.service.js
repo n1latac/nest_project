@@ -24,10 +24,24 @@ let UsersService = class UsersService {
     async hashPassword(password) {
         return bcrypt.hash(password, 10);
     }
+    async findUserByEmail(email) {
+        return await this.userRepository.findOne({ where: { email } });
+    }
     async createUser(data) {
         data.password = await this.hashPassword(data.password);
-        const result = await this.userRepository.create(data);
+        const result = await this.userRepository.create({
+            first_name: data?.first_name,
+            last_name: data?.last_name,
+            email: data?.email,
+            password: data?.password,
+        });
         return result;
+    }
+    async publicUser(email) {
+        return this.userRepository.findOne({
+            where: { email },
+            attributes: { exclude: ['password'] },
+        });
     }
 };
 exports.UsersService = UsersService;
