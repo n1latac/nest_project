@@ -18,6 +18,10 @@ const device_service_1 = require("./device.service");
 const device_dto_1 = require("./device.dto");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
+const jwt_guard_1 = require("../../guards/jwt-guard");
+const roles_guard_1 = require("../../guards/roles.guard");
+const roles_decorator_1 = require("../../decorators/roles.decorator");
+const enums_1 = require("../../constants/enums");
 let DeviceController = class DeviceController {
     constructor(deviceService) {
         this.deviceService = deviceService;
@@ -35,6 +39,8 @@ let DeviceController = class DeviceController {
 };
 exports.DeviceController = DeviceController;
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(enums_1.Role.ADMIN),
     (0, common_1.Post)('create'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage: (0, multer_1.diskStorage)({

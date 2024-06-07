@@ -16,6 +16,10 @@ exports.BrandController = void 0;
 const common_1 = require("@nestjs/common");
 const type_dto_1 = require("../type/type.dto");
 const brand_service_1 = require("./brand.service");
+const jwt_guard_1 = require("../../guards/jwt-guard");
+const roles_guard_1 = require("../../guards/roles.guard");
+const roles_decorator_1 = require("../../decorators/roles.decorator");
+const enums_1 = require("../../constants/enums");
 let BrandController = class BrandController {
     constructor(brandService) {
         this.brandService = brandService;
@@ -29,6 +33,8 @@ let BrandController = class BrandController {
 };
 exports.BrandController = BrandController;
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(enums_1.Role.ADMIN),
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
