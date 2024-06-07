@@ -8,4 +8,5 @@ export declare class AuthController {
     register(data: CreateUserDTO): Promise<CreateUserDTO>;
     login(data: LoginUserDTO): Promise<AuthResponse>;
     checkJwt(): boolean;
+    checkRole(): boolean;
 }

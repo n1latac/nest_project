@@ -7,4 +7,5 @@ export declare class UsersService {
     findUserByEmail(email: string): Promise<User>;
     createUser(data: CreateUserDTO): Promise<CreateUserDTO>;
     publicUser(email: string): Promise<User>;
+    getUserById(id: number): Promise<User>;
 }

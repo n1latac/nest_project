@@ -18,6 +18,9 @@ const auth_service_1 = require("./auth.service");
 const users_dto_1 = require("../users/users.dto");
 const auth_dto_1 = require("./dto/auth.dto");
 const jwt_guard_1 = require("../../guards/jwt-guard");
+const roles_guard_1 = require("../../guards/roles.guard");
+const enums_1 = require("../../constants/enums");
+const roles_decorator_1 = require("../../decorators/roles.decorator");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -29,6 +32,9 @@ let AuthController = class AuthController {
         return this.authService.loginUser(data);
     }
     checkJwt() {
+        return true;
+    }
+    checkRole() {
         return true;
     }
 };
@@ -54,6 +60,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "checkJwt", null);
+__decorate([
+    (0, common_1.Post)('test-role'),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(enums_1.Role.ADMIN),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "checkRole", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

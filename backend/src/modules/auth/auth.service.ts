@@ -6,6 +6,7 @@ import { LoginUserDTO } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
 import { AuthResponse } from '../../response';
 import { TokenService } from '../token/token.service';
+import { Role } from '../../constants/enums';
 
 @Injectable()
 export class AuthService {
@@ -19,6 +20,7 @@ export class AuthService {
     if (existUser) {
       throw new BadRequestException(AppError.USER_EMAIL_EXIST);
     }
+    data.role = Role.CUSTOMER;
     return this.userService.createUser(data);
   }
 
@@ -35,9 +37,15 @@ export class AuthService {
     if (!isValidPassword) {
       throw new BadRequestException(AppError.BAD_REQUEST_DATA);
     }
-    const token = await this.tokenService.generateJwtToken(data?.email);
 
     const user = await this.userService.publicUser(data?.email);
+
+    const token = await this.tokenService.generateJwtToken({
+      id: user?.id,
+      email: data?.email,
+      role: existUser.role,
+    });
+
     return { ...user, token };
   }
 }

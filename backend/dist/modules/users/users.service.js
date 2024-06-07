@@ -43,6 +43,10 @@ let UsersService = class UsersService {
             attributes: { exclude: ['password'] },
         });
     }
+    async getUserById(id) {
+        const user = await this.userRepository.findOne({ where: { id } });
+        return user;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

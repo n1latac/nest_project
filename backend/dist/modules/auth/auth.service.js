@@ -15,6 +15,7 @@ const users_service_1 = require("../users/users.service");
 const errors_1 = require("../../common/errors");
 const bcrypt = require("bcrypt");
 const token_service_1 = require("../token/token.service");
+const enums_1 = require("../../constants/enums");
 let AuthService = class AuthService {
     constructor(userService, tokenService) {
         this.userService = userService;
@@ -25,6 +26,7 @@ let AuthService = class AuthService {
         if (existUser) {
             throw new common_1.BadRequestException(errors_1.AppError.USER_EMAIL_EXIST);
         }
+        data.role = enums_1.Role.CUSTOMER;
         return this.userService.createUser(data);
     }
     async loginUser(data) {
@@ -36,8 +38,12 @@ let AuthService = class AuthService {
         if (!isValidPassword) {
             throw new common_1.BadRequestException(errors_1.AppError.BAD_REQUEST_DATA);
         }
-        const token = await this.tokenService.generateJwtToken(data?.email);
         const user = await this.userService.publicUser(data?.email);
+        const token = await this.tokenService.generateJwtToken({
+            id: user?.id,
+            email: data?.email,
+            role: existUser.role,
+        });
         return { ...user, token };
     }
 };

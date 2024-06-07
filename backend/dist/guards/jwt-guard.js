@@ -9,7 +9,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtAuthGuard = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
+const errors_1 = require("../common/errors");
 let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
+    handleRequest(err, user, info, context) {
+        if (err || !user) {
+            throw new common_1.UnauthorizedException(errors_1.AppError.USER_UNAUTHORIZED);
+        }
+        return user;
+    }
 };
 exports.JwtAuthGuard = JwtAuthGuard;
 exports.JwtAuthGuard = JwtAuthGuard = __decorate([

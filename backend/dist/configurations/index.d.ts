@@ -7,5 +7,7 @@ declare const _default: () => {
     db_password: string;
     jwt_secret: string;
     jwt_expired: string;
+    seederStorage: string;
+    seederStoragePath: string;
 };
 export default _default;

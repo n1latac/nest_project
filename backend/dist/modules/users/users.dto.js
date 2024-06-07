@@ -15,13 +15,20 @@ class CreateUserDTO {
 }
 exports.CreateUserDTO = CreateUserDTO;
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateUserDTO.prototype, "first_name", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateUserDTO.prototype, "last_name", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateUserDTO.prototype, "role", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

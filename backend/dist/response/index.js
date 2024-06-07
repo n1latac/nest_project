@@ -9,8 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthResponse = void 0;
+exports.SuccessResponseDTO = exports.AuthResponse = void 0;
 const class_validator_1 = require("class-validator");
+const class_validator_2 = require("class-validator");
 class AuthResponse {
 }
 exports.AuthResponse = AuthResponse;
@@ -29,9 +30,46 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
+], AuthResponse.prototype, "role", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
 ], AuthResponse.prototype, "password", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], AuthResponse.prototype, "token", void 0);
+class SuccessResponseDTO {
+    constructor(data = null) {
+        this.error = null;
+        this.success = true;
+        this.statusCode = null;
+        if (data?.status && data?.status > 300) {
+            this.error = { message: data?.message, code: data?.status };
+            delete this.data;
+            delete this.success;
+            this.statusCode = data?.status;
+            return;
+        }
+        delete this.statusCode;
+        Object.assign(this, { data });
+    }
+}
+exports.SuccessResponseDTO = SuccessResponseDTO;
+__decorate([
+    (0, class_validator_2.IsOptional)(),
+    __metadata("design:type", Object)
+], SuccessResponseDTO.prototype, "data", void 0);
+__decorate([
+    (0, class_validator_2.IsOptional)(),
+    __metadata("design:type", Object)
+], SuccessResponseDTO.prototype, "error", void 0);
+__decorate([
+    (0, class_validator_2.IsOptional)(),
+    __metadata("design:type", Object)
+], SuccessResponseDTO.prototype, "success", void 0);
+__decorate([
+    (0, class_validator_2.IsOptional)(),
+    __metadata("design:type", Object)
+], SuccessResponseDTO.prototype, "statusCode", void 0);
 //# sourceMappingURL=index.js.map
