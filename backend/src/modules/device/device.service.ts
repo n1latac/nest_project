@@ -10,8 +10,9 @@ export class DeviceService {
   @InjectModel(Device)
   private readonly deviceRepository: typeof Device;
   async createDevice(data: CreateDeviceDto, file) {
-    const { name, price, brand_id, type_id, info } = data;
-
+    const { name, price: priceString, brand_id, type_id, info } = data;
+    console.log(file);
+    const price = Number(priceString);
     try {
       const device = await Device.create({
         name,
@@ -22,12 +23,15 @@ export class DeviceService {
       });
 
       if (info) {
-        const objectInfo = JSON.parse(info);
-        await DeviceInfo.create({
-          title: objectInfo.title,
-          description: objectInfo.description,
-          device_id: objectInfo.id,
-        });
+        const ArrayInfo = JSON.parse(info);
+        console.log(ArrayInfo, '----------------------');
+        for (const item of ArrayInfo) {
+          await DeviceInfo.create({
+            title: item.title,
+            description: item.description,
+            id: device.id,
+          });
+        }
       }
       return device;
     } catch (error) {
@@ -35,14 +39,25 @@ export class DeviceService {
     }
   }
 
-  async getAll(data: GetAllDevicesDTO) {
-    const { brand_id, type_id, limit = 10, page = 1 } = data;
-    const offset = page * limit - page;
+  async getAll(data) {
+    const {
+      brand_id: brand_id_string,
+      type_id: type_id_string,
+      limit = 10,
+      page = 1,
+    } = data;
+    const brand_id = Number(brand_id_string);
+    const type_id = Number(type_id_string);
+    const offset = (page - 1) * limit;
+    console.log(brand_id);
     let devices;
     if (!brand_id && !type_id) {
       devices = await this.deviceRepository.findAndCountAll({ limit, offset });
     }
     if (brand_id && !type_id) {
+      console.log('here');
+      console.log(limit);
+      console.log(offset);
       devices = await this.deviceRepository.findAndCountAll({
         where: { brand_id },
         limit,

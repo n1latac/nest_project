@@ -20,15 +20,18 @@ const jwt_guard_1 = require("../../guards/jwt-guard");
 const roles_guard_1 = require("../../guards/roles.guard");
 const roles_decorator_1 = require("../../decorators/roles.decorator");
 const enums_1 = require("../../constants/enums");
+const response_1 = require("../../response");
 let TypeController = class TypeController {
     constructor(typeService) {
         this.typeService = typeService;
     }
-    createType(data) {
-        return this.typeService.createType(data);
+    async createType(data) {
+        const result = await this.typeService.createType(data);
+        return new response_1.SuccessResponseDTO(result);
     }
-    getAllTypes() {
-        return this.typeService.getAll();
+    async getAllTypes() {
+        const result = await this.typeService.getAll();
+        return new response_1.SuccessResponseDTO(result);
     }
 };
 exports.TypeController = TypeController;
@@ -39,13 +42,13 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [type_dto_1.CreateTypeDTO]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TypeController.prototype, "createType", null);
 __decorate([
     (0, common_1.Get)('all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TypeController.prototype, "getAllTypes", null);
 exports.TypeController = TypeController = __decorate([
     (0, common_1.Controller)('type'),

@@ -22,19 +22,29 @@ const jwt_guard_1 = require("../../guards/jwt-guard");
 const roles_guard_1 = require("../../guards/roles.guard");
 const roles_decorator_1 = require("../../decorators/roles.decorator");
 const enums_1 = require("../../constants/enums");
+const response_1 = require("../../response");
 let DeviceController = class DeviceController {
     constructor(deviceService) {
         this.deviceService = deviceService;
     }
-    createType(data, file) {
-        console.log(file);
-        return this.deviceService.createDevice(data, file);
+    async createSneaker(data, file) {
+        const result = await this.deviceService.createDevice(data, file);
+        return new response_1.SuccessResponseDTO(result);
     }
-    getAllTypes(data) {
-        return this.deviceService.getAll(data);
+    async getAllDevices(page = 1, limit = 10, brand_id, type_id) {
+        const data = {
+            brand_id,
+            type_id,
+            limit: Number(limit),
+            page: Number(page),
+        };
+        const result = await this.deviceService.getAll(data);
+        return new response_1.SuccessResponseDTO(result);
     }
-    getOneDevice(id) {
-        return this.deviceService.getOneDeviceById(id);
+    async getOneDevice(id) {
+        console.log(id);
+        const result = await this.deviceService.getOneDeviceById(id);
+        return new response_1.SuccessResponseDTO(result);
     }
 };
 exports.DeviceController = DeviceController;
@@ -63,21 +73,24 @@ __decorate([
     __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [device_dto_1.CreateDeviceDto, Object]),
-    __metadata("design:returntype", void 0)
-], DeviceController.prototype, "createType", null);
+    __metadata("design:returntype", Promise)
+], DeviceController.prototype, "createSneaker", null);
 __decorate([
-    (0, common_1.Post)('all'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('all'),
+    __param(0, (0, common_1.Query)('page')),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('brand_id')),
+    __param(3, (0, common_1.Query)('type_id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [device_dto_1.GetAllDevicesDTO]),
-    __metadata("design:returntype", void 0)
-], DeviceController.prototype, "getAllTypes", null);
+    __metadata("design:paramtypes", [Number, Number, Number, Number]),
+    __metadata("design:returntype", Promise)
+], DeviceController.prototype, "getAllDevices", null);
 __decorate([
-    (0, common_1.Get)('one'),
-    __param(0, (0, common_1.Query)('id')),
+    (0, common_1.Get)('one/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], DeviceController.prototype, "getOneDevice", null);
 exports.DeviceController = DeviceController = __decorate([
     (0, common_1.Controller)('device'),

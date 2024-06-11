@@ -12,8 +12,8 @@ export class CreateDeviceDto {
   name: string;
 
   @IsOptional()
-  @IsNumber()
-  price: number;
+  @IsString()
+  price: string;
 
   @IsOptional()
   @IsString()

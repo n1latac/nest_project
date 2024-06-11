@@ -32,6 +32,20 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => typeBrand_model_1.TypeBrand, 'type_id'),
     __metadata("design:type", Array)
 ], Type.prototype, "types", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.DATE,
+        allowNull: false,
+    }),
+    __metadata("design:type", Date)
+], Type.prototype, "created_at", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.DATE,
+        allowNull: false,
+    }),
+    __metadata("design:type", Date)
+], Type.prototype, "updated_at", void 0);
 exports.Type = Type = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: 'types',

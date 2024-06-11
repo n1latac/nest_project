@@ -43,6 +43,6 @@ __decorate([
     __metadata("design:type", device_model_1.Device)
 ], DeviceInfo.prototype, "device", void 0);
 exports.DeviceInfo = DeviceInfo = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'device_info' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'device_info', underscored: true })
 ], DeviceInfo);
 //# sourceMappingURL=deviceInfo.model.js.map

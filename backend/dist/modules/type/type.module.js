@@ -12,14 +12,16 @@ const type_controller_1 = require("./type.controller");
 const type_service_1 = require("./type.service");
 const sequelize_1 = require("@nestjs/sequelize");
 const type_model_1 = require("../../models/type.model");
+const user_model_1 = require("../../models/user.model");
+const users_service_1 = require("../users/users.service");
 let TypeModule = class TypeModule {
 };
 exports.TypeModule = TypeModule;
 exports.TypeModule = TypeModule = __decorate([
     (0, common_1.Module)({
-        imports: [sequelize_1.SequelizeModule.forFeature([type_model_1.Type])],
+        imports: [sequelize_1.SequelizeModule.forFeature([type_model_1.Type, user_model_1.User])],
         controllers: [type_controller_1.TypeController],
-        providers: [type_service_1.TypeService],
+        providers: [type_service_1.TypeService, users_service_1.UsersService],
     })
 ], TypeModule);
 //# sourceMappingURL=type.module.js.map

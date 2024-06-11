@@ -17,6 +17,7 @@ import { JwtAuthGuard } from '../../guards/jwt-guard';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Roles } from '../../decorators/roles.decorator';
 import { Role } from '../../constants/enums';
+import { SuccessResponseDTO } from '../../response';
 
 @Controller('device')
 export class DeviceController {
@@ -45,22 +46,36 @@ export class DeviceController {
       },
     }),
   )
-  createType(
+  async createSneaker(
     @Body() data: CreateDeviceDto,
     @UploadedFile()
     file: Express.Multer.File,
-  ) {
-    console.log(file);
-    return this.deviceService.createDevice(data, file);
+  ): Promise<SuccessResponseDTO> {
+    const result = await this.deviceService.createDevice(data, file);
+    return new SuccessResponseDTO(result);
   }
 
-  @Post('all')
-  getAllTypes(@Body() data: GetAllDevicesDTO) {
-    return this.deviceService.getAll(data);
+  @Get('all')
+  async getAllDevices(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('brand_id') brand_id?: number,
+    @Query('type_id') type_id?: number,
+  ): Promise<SuccessResponseDTO> {
+    const data = {
+      brand_id,
+      type_id,
+      limit: Number(limit),
+      page: Number(page),
+    };
+    const result = await this.deviceService.getAll(data);
+    return new SuccessResponseDTO(result);
   }
 
-  @Get('one')
-  getOneDevice(@Query('id') id: number) {
-    return this.deviceService.getOneDeviceById(id);
+  @Get('one/:id')
+  async getOneDevice(@Param('id') id: number): Promise<SuccessResponseDTO> {
+    console.log(id);
+    const result = await this.deviceService.getOneDeviceById(id);
+    return new SuccessResponseDTO(result);
   }
 }

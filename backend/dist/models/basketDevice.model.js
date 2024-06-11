@@ -39,6 +39,6 @@ __decorate([
     __metadata("design:type", device_model_1.Device)
 ], BasketDevice.prototype, "device", void 0);
 exports.BasketDevice = BasketDevice = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'basket_devices' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'basket_devices', underscored: true })
 ], BasketDevice);
 //# sourceMappingURL=basketDevice.model.js.map

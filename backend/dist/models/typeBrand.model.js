@@ -39,6 +39,6 @@ __decorate([
     __metadata("design:type", brand_model_1.Brand)
 ], TypeBrand.prototype, "brand", void 0);
 exports.TypeBrand = TypeBrand = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'type_brand' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'type_brand', underscored: true })
 ], TypeBrand);
 //# sourceMappingURL=typeBrand.model.js.map

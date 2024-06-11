@@ -2,11 +2,9 @@ import {
   Injectable,
   CanActivate,
   ExecutionContext,
-  BadRequestException,
   ForbiddenException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Role } from '../constants/enums';
 import { UsersService } from '../modules/users/users.service';
 import { AppError } from '../common/errors';
 

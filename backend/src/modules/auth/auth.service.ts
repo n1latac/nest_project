@@ -21,10 +21,18 @@ export class AuthService {
       throw new BadRequestException(AppError.USER_EMAIL_EXIST);
     }
     data.role = Role.CUSTOMER;
-    return this.userService.createUser(data);
+    const user: any = await this.userService.createUser(data);
+
+    const token = await this.tokenService.generateJwtToken({
+      id: user?.id,
+      email: user?.email,
+      role: user.role,
+    });
+
+    return { user, token };
   }
 
-  async loginUser(data: LoginUserDTO): Promise<AuthResponse> {
+  async loginUser(data: LoginUserDTO) {
     const existUser = await this.userService.findUserByEmail(data?.email);
     if (!existUser) {
       throw new BadRequestException(AppError.BAD_REQUEST_DATA);
@@ -46,6 +54,6 @@ export class AuthService {
       role: existUser.role,
     });
 
-    return { ...user, token };
+    return { user, token };
   }
 }

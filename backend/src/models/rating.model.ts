@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript';
 import { Device } from './device.model';
 import { User } from './user.model';
-@Table({ tableName: 'rating' })
+@Table({ tableName: 'rating', underscored: true })
 export class Rating extends Model {
   @Column({
     type: DataType.INTEGER,

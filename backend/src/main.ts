@@ -15,6 +15,11 @@ async function bootstrap() {
     .addTag('api')
     .build();
   const document = SwaggerModule.createDocument(app, config);
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   SwaggerModule.setup('api', app, document);
   await app.listen(configService.get('port'), () => {
     console.log(`server start on port ${configService.get('port')}`);

@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const users_dto_1 = require("../users/users.dto");
 const auth_dto_1 = require("./dto/auth.dto");
+const response_1 = require("../../response");
 const jwt_guard_1 = require("../../guards/jwt-guard");
 const roles_guard_1 = require("../../guards/roles.guard");
 const enums_1 = require("../../constants/enums");
@@ -25,18 +26,20 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    register(data) {
-        return this.authService.registerUser(data);
+    async register(data) {
+        const { user, token } = await this.authService.registerUser(data);
+        return new response_1.SuccessResponseDTO({ user, token });
     }
-    login(data) {
-        return this.authService.loginUser(data);
+    async login(data) {
+        const { user, token } = await this.authService.loginUser(data);
+        return new response_1.SuccessResponseDTO({ user, token });
     }
-    checkJwt() {
-        return true;
+    async checkJwt(request) {
+        const user = request.user;
+        const token = request.token;
+        return new response_1.SuccessResponseDTO({ user, token });
     }
-    checkRole() {
-        return true;
-    }
+    checkRole() { }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -55,10 +58,11 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
-    (0, common_1.Post)('test'),
+    (0, common_1.Get)('check-auth'),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "checkJwt", null);
 __decorate([
     (0, common_1.Post)('test-role'),

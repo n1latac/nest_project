@@ -9,5 +9,11 @@ declare const _default: () => {
     jwt_expired: string;
     seederStorage: string;
     seederStoragePath: string;
+    define: {
+        underscored: boolean;
+        timestamps: boolean;
+        createdAt: string;
+        updatedAt: string;
+    };
 };
 export default _default;

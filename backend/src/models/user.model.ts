@@ -9,7 +9,7 @@ import {
 import { Basket } from './basket.model';
 import { Rating } from './rating.model';
 
-@Table({ tableName: 'users' })
+@Table({ tableName: 'users', underscored: true })
 export class User extends Model {
   @Column({
     type: DataType.STRING,

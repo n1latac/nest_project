@@ -9,7 +9,7 @@ import {
 import { User } from './user.model';
 import { BasketDevice } from './basketDevice.model';
 
-@Table({ tableName: 'baskets' })
+@Table({ tableName: 'baskets', underscored: true })
 export class Basket extends Model {
   @Column({
     type: DataType.INTEGER,

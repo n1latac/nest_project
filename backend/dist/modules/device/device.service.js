@@ -17,7 +17,9 @@ const sequelize_1 = require("@nestjs/sequelize");
 const deviceInfo_model_1 = require("../../models/deviceInfo.model");
 let DeviceService = class DeviceService {
     async createDevice(data, file) {
-        const { name, price, brand_id, type_id, info } = data;
+        const { name, price: priceString, brand_id, type_id, info } = data;
+        console.log(file);
+        const price = Number(priceString);
         try {
             const device = await device_model_1.Device.create({
                 name,
@@ -27,12 +29,15 @@ let DeviceService = class DeviceService {
                 img: file.filename,
             });
             if (info) {
-                const objectInfo = JSON.parse(info);
-                await deviceInfo_model_1.DeviceInfo.create({
-                    title: objectInfo.title,
-                    description: objectInfo.description,
-                    device_id: objectInfo.id,
-                });
+                const ArrayInfo = JSON.parse(info);
+                console.log(ArrayInfo, '----------------------');
+                for (const item of ArrayInfo) {
+                    await deviceInfo_model_1.DeviceInfo.create({
+                        title: item.title,
+                        description: item.description,
+                        id: device.id,
+                    });
+                }
             }
             return device;
         }
@@ -41,13 +46,19 @@ let DeviceService = class DeviceService {
         }
     }
     async getAll(data) {
-        const { brand_id, type_id, limit = 10, page = 1 } = data;
-        const offset = page * limit - page;
+        const { brand_id: brand_id_string, type_id: type_id_string, limit = 10, page = 1, } = data;
+        const brand_id = Number(brand_id_string);
+        const type_id = Number(type_id_string);
+        const offset = (page - 1) * limit;
+        console.log(brand_id);
         let devices;
         if (!brand_id && !type_id) {
             devices = await this.deviceRepository.findAndCountAll({ limit, offset });
         }
         if (brand_id && !type_id) {
+            console.log('here');
+            console.log(limit);
+            console.log(offset);
             devices = await this.deviceRepository.findAndCountAll({
                 where: { brand_id },
                 limit,

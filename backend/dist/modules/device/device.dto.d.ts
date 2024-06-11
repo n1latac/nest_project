@@ -1,6 +1,6 @@
 export declare class CreateDeviceDto {
     name: string;
-    price: number;
+    price: string;
     img: string;
     type_id: number;
     brand_id: number;

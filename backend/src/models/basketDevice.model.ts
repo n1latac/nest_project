@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript';
 import { Basket } from './basket.model';
 import { Device } from './device.model';
-@Table({ tableName: 'basket_devices' })
+@Table({ tableName: 'basket_devices', underscored: true })
 export class BasketDevice extends Model {
   @Column({
     type: DataType.INTEGER,

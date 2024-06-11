@@ -32,7 +32,26 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => typeBrand_model_1.TypeBrand, 'brand_id'),
     __metadata("design:type", Array)
 ], Brand.prototype, "brands", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.DATE,
+        allowNull: false,
+    }),
+    __metadata("design:type", Date)
+], Brand.prototype, "created_at", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.DATE,
+        allowNull: false,
+    }),
+    __metadata("design:type", Date)
+], Brand.prototype, "updated_at", void 0);
 exports.Brand = Brand = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'brands' })
+    (0, sequelize_typescript_1.Table)({
+        tableName: 'brands',
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+        timestamps: true,
+    })
 ], Brand);
 //# sourceMappingURL=brand.model.js.map

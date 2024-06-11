@@ -20,15 +20,18 @@ const jwt_guard_1 = require("../../guards/jwt-guard");
 const roles_guard_1 = require("../../guards/roles.guard");
 const roles_decorator_1 = require("../../decorators/roles.decorator");
 const enums_1 = require("../../constants/enums");
+const response_1 = require("../../response");
 let BrandController = class BrandController {
     constructor(brandService) {
         this.brandService = brandService;
     }
-    createType(data) {
-        return this.brandService.createBrand(data);
+    async createType(data) {
+        const result = await this.brandService.createBrand(data);
+        return new response_1.SuccessResponseDTO(result);
     }
-    getAllTypes() {
-        return this.brandService.getAll();
+    async getAllTypes() {
+        const result = await this.brandService.getAll();
+        return new response_1.SuccessResponseDTO(result);
     }
 };
 exports.BrandController = BrandController;
@@ -39,13 +42,13 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [type_dto_1.CreateTypeDTO]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], BrandController.prototype, "createType", null);
 __decorate([
     (0, common_1.Get)('all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], BrandController.prototype, "getAllTypes", null);
 exports.BrandController = BrandController = __decorate([
     (0, common_1.Controller)('brand'),

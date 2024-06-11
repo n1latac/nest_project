@@ -14,7 +14,7 @@ import { Type } from './type.model';
 import { Brand } from './brand.model';
 import { DeviceInfo } from './deviceInfo.model';
 
-@Table({ tableName: 'devices' })
+@Table({ tableName: 'devices', underscored: true })
 export class Device extends Model {
   @Column({
     type: DataType.STRING,
@@ -30,7 +30,7 @@ export class Device extends Model {
   price: number;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: true,
   })
   rating: number;

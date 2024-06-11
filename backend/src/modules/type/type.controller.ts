@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../../guards/jwt-guard';
 import { RolesGuard } from '../../guards/roles.guard';
 import { Roles } from '../../decorators/roles.decorator';
 import { Role } from '../../constants/enums';
+import { SuccessResponseDTO } from '../../response';
 
 @Controller('type')
 export class TypeController {
@@ -13,12 +14,14 @@ export class TypeController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   @Post('create')
-  createType(@Body() data: CreateTypeDTO) {
-    return this.typeService.createType(data);
+  async createType(@Body() data: CreateTypeDTO): Promise<SuccessResponseDTO> {
+    const result = await this.typeService.createType(data);
+    return new SuccessResponseDTO(result);
   }
 
   @Get('all')
-  getAllTypes() {
-    return this.typeService.getAll();
+  async getAllTypes(): Promise<SuccessResponseDTO> {
+    const result = await this.typeService.getAll();
+    return new SuccessResponseDTO(result);
   }
 }

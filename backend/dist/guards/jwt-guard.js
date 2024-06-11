@@ -15,6 +15,9 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
         if (err || !user) {
             throw new common_1.UnauthorizedException(errors_1.AppError.USER_UNAUTHORIZED);
         }
+        const request = context.switchToHttp().getRequest();
+        request.user = user;
+        request.token = request.headers.authorization.split(' ')[1];
         return user;
     }
 };

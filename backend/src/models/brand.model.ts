@@ -8,7 +8,12 @@ import {
 } from 'sequelize-typescript';
 import { Device } from './device.model';
 import { TypeBrand } from './typeBrand.model';
-@Table({ tableName: 'brands' })
+@Table({
+  tableName: 'brands',
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  timestamps: true,
+})
 export class Brand extends Model {
   @Column({
     type: DataType.STRING,
@@ -28,4 +33,16 @@ export class Brand extends Model {
 
   @HasMany(() => TypeBrand, 'brand_id')
   brands: TypeBrand[];
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  created_at: Date;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  updated_at: Date;
 }

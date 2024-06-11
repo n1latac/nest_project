@@ -46,6 +46,6 @@ __decorate([
     __metadata("design:type", device_model_1.Device)
 ], Rating.prototype, "device", void 0);
 exports.Rating = Rating = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'rating' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'rating', underscored: true })
 ], Rating);
 //# sourceMappingURL=rating.model.js.map

@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript';
 import { Type } from './type.model';
 import { Brand } from './brand.model';
-@Table({ tableName: 'type_brand' })
+@Table({ tableName: 'type_brand', underscored: true })
 export class TypeBrand extends Model {
   @Column({
     type: DataType.INTEGER,

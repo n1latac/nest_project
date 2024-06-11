@@ -9,4 +9,10 @@ export default () => ({
   jwt_expired: process.env.JWT_EXPIRED,
   seederStorage: 'json',
   seederStoragePath: 'sequelizeData.json',
+  define: {
+    underscored: true,
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
 });

@@ -25,6 +25,7 @@ export class UsersService {
       last_name: data?.last_name,
       email: data?.email,
       password: data?.password,
+      role: data?.role && 'customer',
     });
     return result;
   }

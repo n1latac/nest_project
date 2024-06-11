@@ -12,14 +12,16 @@ const brand_controller_1 = require("./brand.controller");
 const brand_service_1 = require("./brand.service");
 const sequelize_1 = require("@nestjs/sequelize");
 const brand_model_1 = require("../../models/brand.model");
+const user_model_1 = require("../../models/user.model");
+const users_service_1 = require("../users/users.service");
 let BrandModule = class BrandModule {
 };
 exports.BrandModule = BrandModule;
 exports.BrandModule = BrandModule = __decorate([
     (0, common_1.Module)({
-        imports: [sequelize_1.SequelizeModule.forFeature([brand_model_1.Brand])],
+        imports: [sequelize_1.SequelizeModule.forFeature([brand_model_1.Brand, user_model_1.User])],
         controllers: [brand_controller_1.BrandController],
-        providers: [brand_service_1.BrandService],
+        providers: [brand_service_1.BrandService, users_service_1.UsersService],
     })
 ], BrandModule);
 //# sourceMappingURL=brand.module.js.map

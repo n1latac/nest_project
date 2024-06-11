@@ -33,4 +33,16 @@ export class Type extends Model {
 
   @HasMany(() => TypeBrand, 'type_id')
   types: TypeBrand[];
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  created_at: Date;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  updated_at: Date;
 }

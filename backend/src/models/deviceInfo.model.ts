@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript';
 import { Device } from './device.model';
 
-@Table({ tableName: 'device_info' })
+@Table({ tableName: 'device_info', underscored: true })
 export class DeviceInfo extends Model {
   @Column({
     type: DataType.STRING,

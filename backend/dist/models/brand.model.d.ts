@@ -5,4 +5,6 @@ export declare class Brand extends Model {
     name: string;
     devices: Device[];
     brands: TypeBrand[];
+    created_at: Date;
+    updated_at: Date;
 }
