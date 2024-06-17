@@ -18,7 +18,6 @@ const deviceInfo_model_1 = require("../../models/deviceInfo.model");
 let DeviceService = class DeviceService {
     async createDevice(data, file) {
         const { name, price: priceString, brand_id, type_id, info } = data;
-        console.log(file);
         const price = Number(priceString);
         try {
             const device = await device_model_1.Device.create({
@@ -30,12 +29,12 @@ let DeviceService = class DeviceService {
             });
             if (info) {
                 const ArrayInfo = JSON.parse(info);
-                console.log(ArrayInfo, '----------------------');
+                console.log(ArrayInfo);
                 for (const item of ArrayInfo) {
                     await deviceInfo_model_1.DeviceInfo.create({
                         title: item.title,
                         description: item.description,
-                        id: device.id,
+                        device_id: device.id,
                     });
                 }
             }
@@ -50,10 +49,20 @@ let DeviceService = class DeviceService {
         const brand_id = Number(brand_id_string);
         const type_id = Number(type_id_string);
         const offset = (page - 1) * limit;
-        console.log(brand_id);
         let devices;
         if (!brand_id && !type_id) {
-            devices = await this.deviceRepository.findAndCountAll({ limit, offset });
+            devices = await this.deviceRepository.findAndCountAll({
+                limit,
+                offset,
+                include: [
+                    {
+                        association: 'type',
+                    },
+                    {
+                        association: 'brand',
+                    },
+                ],
+            });
         }
         if (brand_id && !type_id) {
             console.log('here');

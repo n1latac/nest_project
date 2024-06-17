@@ -35,7 +35,7 @@ const CreateSneaker = observer(({show, onHide}) => {
 
     const addSneaker = () => {
         if (!name || isNaN(price) || !file) {
-            console.log('Заполните все обязательные поля');
+            console.log('Fill in all required fields');
             return;
         }
 
@@ -59,7 +59,7 @@ const CreateSneaker = observer(({show, onHide}) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить устройство
+                    Add sneaker
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -100,13 +100,13 @@ const CreateSneaker = observer(({show, onHide}) => {
                         value={name}
                         onChange={e => setName(e.target.value)}
                         className="mt-3"
-                        placeholder="Введите название устройства"
+                        placeholder="Enter sneaker name"
                     />
                     <Form.Control
                         value={price}
                         onChange={e => setPrice(Number(e.target.value))}
                         className="mt-3"
-                        placeholder="Введите стоимость устройства"
+                        placeholder="Enter the cost of the sneaker"
                         type="number"
                     />
                     <Form.Control
@@ -119,7 +119,7 @@ const CreateSneaker = observer(({show, onHide}) => {
                         variant={"outline-dark"}
                         onClick={addInfo}
                     >
-                        Добавить новое свойство
+                        Add new sneakers
                     </Button>
                     {info.map(i =>
                         <Row className="mt-4" key={i.number}>
@@ -127,14 +127,14 @@ const CreateSneaker = observer(({show, onHide}) => {
                                 <Form.Control
                                     value={i.title}
                                     onChange={(e) => changeInfo('title', e.target.value, i.number)}
-                                    placeholder="Введите название свойства"
+                                    placeholder="Enter a property name"
                                 />
                             </Col>
                             <Col md={4}>
                                 <Form.Control
                                     value={i.description}
                                     onChange={(e) => changeInfo('description', e.target.value, i.number)}
-                                    placeholder="Введите описание свойства"
+                                    placeholder="Enter a property description"
                                 />
                             </Col>
                             <Col md={4}>
@@ -142,7 +142,7 @@ const CreateSneaker = observer(({show, onHide}) => {
                                     onClick={() => removeInfo(i.number)}
                                     variant={"outline-danger"}
                                 >
-                                    Удалить
+                                    Delete
                                 </Button>
                             </Col>
                         </Row>
@@ -150,8 +150,8 @@ const CreateSneaker = observer(({show, onHide}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-                <Button variant="outline-success" onClick={() => addSneaker()}>Добавить</Button>
+                <Button variant="outline-danger" onClick={onHide}>Close</Button>
+                <Button variant="outline-success" onClick={() => addSneaker()}>Add</Button>
             </Modal.Footer>
         </Modal>
     );

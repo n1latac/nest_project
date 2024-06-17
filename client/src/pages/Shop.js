@@ -20,7 +20,7 @@ const Shop = observer(() => {
     }, [])
 
     useEffect(() => {
-        getSneakers(sneaker.selectedBrand.id, sneaker.selectedType.id, sneaker.page, 2).then(data => {
+        getSneakers(sneaker.selectedBrand.id, sneaker.selectedType.id, sneaker.page, 8).then(data => {
             sneaker.setSneakers(data.result)
             //sneaker.setTotalCount(data.count)
         })

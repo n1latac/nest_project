@@ -36,14 +36,15 @@ const SneakerPage = () => {
                         className="d-flex flex-column align-items-center justify-content-around"
                         style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}
                     >
-                        <h3>От: {sneaker.price} ₴.</h3>
-                        <Button variant={"outline-dark"}>Добавить в корзину</Button>
+                        <h3>From: {sneaker.price} ₴.</h3>
+                        <Button variant={"outline-dark"}>Add to Basket
+                        </Button>
                     </Card>
                 </Col>
             </Row>
             {   sneaker?.device_info ?
                 <Row className="d-flex flex-column m-3">
-                    <h1>Характеристики</h1>
+                    <h1>Characteristics</h1>
                     {sneaker.device_info.map((info, index) =>
                         <Row key={info.id} style={{background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10}}>
                             {info.title}: {info.description}

@@ -12,14 +12,14 @@ export class DeviceInfo extends Model {
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: true,
+    unique: false,
   })
   title: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: true,
+    unique: false,
   })
   description: string;
 
